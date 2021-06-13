@@ -1,0 +1,14 @@
+{
+  "name": "get-notes",
+  "version": "1.0.0",
+  "description": "\"Mern stack app to share notes\"",
+  "main": "server.js",
+  "scripts": {
+    "start":"node Backend/server.js"
+  },
+  "author": "Ayush Pawar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
