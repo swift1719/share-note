@@ -1,7 +1,7 @@
 {
   "name": "get-notes",
   "version": "1.0.0",
-  "description": "\"Mern stack app to share notes\"",
+  "description": "Mern stack app to share notes",
   "main": "server.js",
   "scripts": {
     "start":"node Backend/server.js"
