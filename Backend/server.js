@@ -1,8 +1,13 @@
 const express = require('express');
 const notes = require('./data/notes');
+const dotenv = require('dotenv');
 
 //creating object of express
 const app = express();
+
+//loads .env file content to application
+dotenv.config();
+const PORT=process.env.PORT || 5000;
 
 // whenever we try to fetch data from DB/backend then
 //api end-point is the route from where the data is served
@@ -12,7 +17,13 @@ app.get('/',(req,res)=>{
     res.send('API is running')
 })
 app.get('/api/notes',(req,res)=>{
-    res.json(notes);
+    res.json(notes); 
 })
+
+app.get('/api/notes/:id',(req,res)=>{
+    const note=notes.find((n)=>n._id===req.params.id)
+    res.send(note);
+})
+
 //creating http server 
-app.listen(5000,console.log("server started at port 5000"));
+app.listen(PORT,console.log(`Server started at port ${PORT}`));
