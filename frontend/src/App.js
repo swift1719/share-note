@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <Header/>
-      <main style={{minHeight:"44vw"}}>
+      <main style={{minHeight:"40vw"}}>
 
       </main>
       <Footer/>
