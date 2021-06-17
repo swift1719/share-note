@@ -9,7 +9,7 @@ const Footer = () => {
         <footer
         style={{
             width:"100%",
-            position:"relative",
+            position:"absolute",
             bottom:0,
             display:"flex",
             justifyContent:"center",
