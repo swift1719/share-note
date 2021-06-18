@@ -2,14 +2,23 @@ import './App.css';
 import Footer from './components/footer/footer';
 import Header from './components/header/header';
 import LandingPage from './screens/landingPage/landingPage';
+import MyNotes from './screens/MyNotes/MyNotes';
+import {
+  BrowserRouter,
+  Switch,
+  Route,  
+} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
+    <BrowserRouter>
       <Header/>
-      <LandingPage/>
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+        <Route path="/mynotes" component={()=><MyNotes/>} />
+        </Switch>
       <Footer/>
-    </div>
+    </BrowserRouter>  
   );
 }
 
