@@ -1,4 +1,5 @@
 .main{
+    width: 100%;
     height: 745px;
     display: flex;
     align-items: center;
@@ -14,11 +15,11 @@
 .buttonContainer{
     margin-top: 50px;
     display: flex;
-    padding: 0px 200px;
+    padding: 0px 10%;
     justify-content:space-evenly;
 }
 .title{
-    padding: 0 100px;
+    padding: 0 20%;
     font-size: 70px;
 }
 .subtitle{
@@ -30,17 +31,17 @@
     height:55px;
 }
 
-@media only screen and (max-width:768px) {
+@media(max-width:900px) {
     .main{
-        margin-top: 0px;
-        height:580px;
+        height:584px;
     }
     .title{
         font-size: 35px;
     }
     .subtitle{
-        font-size: 18px;
+        font-size: 20px;
     }
+    
     .landingButton{
         width: 90px;
         height: 40px;
