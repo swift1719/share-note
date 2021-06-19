@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
     Button,
     Card,
@@ -8,9 +9,11 @@ import {
     Link
 } from 'react-router-dom';
 import MainScreen from "../../components/MainScreen/MainScreen"
-import notes from '../../data/notes';
+import axios from 'axios';
 
 const MyNotes = () => {
+
+    const [notes, setNotes] = useState([])
 
     const deleteHandler=(id)=>{
         if(window.confirm("Are you sure?")){
@@ -18,15 +21,24 @@ const MyNotes = () => {
         }
     }
 
+    const fetchNotes=async ()=>{
+        const {data}=await axios.get(`/api/notes`);
+        setNotes(data);
+    }
+
+    useEffect(()=>{
+        fetchNotes();
+    },[])
+
     return <MainScreen title="Welcome Back User...">
         <Link to="/createnote" >
             <Button style={{marginLeft:10,marginBottom:6}} size="lg" color="primary" >
                 Create Note
             </Button>
         </Link>
-        {
-            notes.map((note,ind)=>(
-                <Accordion>
+        {   notes.length>0 &&
+            notes.map((note)=>(
+                <Accordion key={note._id}>
                     <Card style={{margin:10}} >
                         <Card.Header style={{display:"flex"}} >
                             <span 
