@@ -2,14 +2,16 @@
   "name": "get-notes",
   "version": "1.0.0",
   "description": "Mern stack app to share notes",
-  "main": "Backend/server.js",
+  "main": "backend/server.js",
   "scripts": {
-    "start": "node Backend/server.js",
-    "server": "nodemon Backend/server.js"
+    "start": "nodemon backend/server.js",
+    "client":"npm start --prefix frontend",
+    "dev":"concurrently \"npm start\" \"npm run client\" "
   },
   "author": "Ayush Pawar",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^6.2.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1"
   },
