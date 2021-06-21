@@ -1,6 +1,9 @@
 const express = require('express');
 const notes = require('./data/notes');
 const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+
+
 
 //creating object of express
 const app = express();
@@ -8,6 +11,8 @@ const app = express();
 //loads .env file content to application
 dotenv.config();
 const PORT=process.env.PORT || 5000;
+
+connectDB();
 
 // whenever we try to fetch data from DB/backend then
 //api end-point is the route from where the data is served
