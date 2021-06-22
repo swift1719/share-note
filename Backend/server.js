@@ -2,7 +2,7 @@ const express = require('express');
 const notes = require('./data/notes');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
-
+const userRoutes = require('./routes/userRoutes');
 
 
 //creating object of express
@@ -29,6 +29,8 @@ app.get('/api/notes/:id',(req,res)=>{
     const note=notes.find((n)=>n._id===req.params.id)
     res.send(note);
 })
+
+app.use('api/users',userRoutes);
 
 //creating http server 
 app.listen(PORT,console.log(`Server started at port ${PORT}`));
