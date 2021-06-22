@@ -3,7 +3,8 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 
 
-const registerUser = async (req,res) =>{
+const registerUser = asyncHandler(async (req,res) =>{
+    // console.log(req.body);
     const {name,email,password,pic} = req.body;
     
     const userExists= await User.findOne({email});
@@ -31,9 +32,5 @@ const registerUser = async (req,res) =>{
         throw new Error("Error while registering the user...")
     }
     
-    res.json({
-        name,
-        email,
-    });
-};
+});
 module.exports = {registerUser};

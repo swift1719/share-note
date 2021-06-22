@@ -13,6 +13,8 @@ dotenv.config();
 const PORT=process.env.PORT || 5000;
 
 connectDB();
+// accepts json data from the user
+app.use(express.json());
 
 // whenever we try to fetch data from DB/backend then
 //api end-point is the route from where the data is served
@@ -30,7 +32,7 @@ app.get('/api/notes/:id',(req,res)=>{
     res.send(note);
 })
 
-app.use('api/users',userRoutes);
+app.use('/api/users',userRoutes);
 
 //creating http server 
 app.listen(PORT,console.log(`Server started at port ${PORT}`));
