@@ -3,6 +3,7 @@ const notes = require('./data/notes');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
+const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
 
 
 //creating object of express
@@ -32,7 +33,12 @@ app.get('/api/notes/:id',(req,res)=>{
     res.send(note);
 })
 
+//using routes for a particular aspect/user mode
+// from within a separate file from routes folder
 app.use('/api/users',userRoutes);
 
+// using middlewares
+app.use(notFound);
+app.use(errorHandler);
 //creating http server 
 app.listen(PORT,console.log(`Server started at port ${PORT}`));
