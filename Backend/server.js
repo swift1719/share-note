@@ -40,5 +40,6 @@ app.use('/api/users',userRoutes);
 // using middlewares
 app.use(notFound);
 app.use(errorHandler);
+
 //creating http server 
 app.listen(PORT,console.log(`Server started at port ${PORT}`));
