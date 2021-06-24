@@ -44,6 +44,12 @@ userSchema.pre('save',async function(next){
     this.password=await bcrypt.hash(this.password,salt);
 });
 
+// function to decrypt password
+userSchema.methods.matchPassword = async function(enteredPassword){
+    //comparing user provided password with that stored in DB
+    return await bcrypt.compare(enteredPassword,this.password);
+}
+
 const User = mongoose.model("User",userSchema);
 
 module.exports = User;
