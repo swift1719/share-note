@@ -2,7 +2,6 @@
 
 .mainback{
     min-height: 90vh;
-    display: flex;
     padding: 10px 0;
 }
 
@@ -13,6 +12,9 @@
     font-size: 60px;
     font-family: "Work Sans", sans-serif;
     padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 @media (max-width:768px){
