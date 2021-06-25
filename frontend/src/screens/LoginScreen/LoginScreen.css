@@ -1,0 +1,16 @@
+.loginContainer{
+    display: flex;
+    flex-direction: column;
+    max-width: 30%;
+    margin: auto;
+}
+.loginButton{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+@media (max-width:780px) {
+    .loginContainer{
+        max-width: 90%;
+    }
+}
