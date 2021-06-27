@@ -8,7 +8,7 @@ import {
 import {
     Link
 } from 'react-router-dom';
-import MainScreen from "../../components/MainScreen/MainScreen"
+import MainScreen from "../../components/MainLayout/MainLayout"
 import axios from 'axios';
 
 const MyNotes = () => {

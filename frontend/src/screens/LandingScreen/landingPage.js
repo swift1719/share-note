@@ -6,6 +6,14 @@ import {
 import './landingPage.css'
 
 const LandingPage = () => {
+
+    // useEffect(() => {
+    //     const userInfo = localStorage.getItem("userInfo");
+    //     if(userInfo){
+    //         history.pushState("/mynotes");
+    //     }
+    // }, [history])
+
     return (
         <div className="main">
             <Container>
