@@ -57,7 +57,8 @@ const RegisterScreen = () => {
         }
 
         setPicMessage(null);
-
+        //transforming selected image using cloudinary
+        // which provides url for the stored image
         if(picture.type==='image/jpeg' || picture.type==='image/jpg' || picture.type==='image/png'){
             const data = new FormData();
             data.append('file',picture);
