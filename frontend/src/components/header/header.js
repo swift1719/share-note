@@ -7,10 +7,11 @@ import {
     FormControl, 
 } from 'react-bootstrap';
 import {
-    Link
+    Link, useHistory
 } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({name="User"}) => {
+    const history = useHistory();
     return (
         <Navbar bg="primary" expand="lg" variant="dark" >
             <Container>
@@ -29,10 +30,15 @@ const Header = () => {
                         My Notes
                     </Link>
                 </div>
-                <NavDropdown title="User" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
+                <NavDropdown title={name} id="basic-nav-dropdown">
+                    <NavDropdown.Item href="#">
+                        My Profile
+                    </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
+                    <NavDropdown.Item onClick={()=>{
+                        localStorage.removeItem('userInfo');
+                        history.push("/");
+                    }} >Logout</NavDropdown.Item>
                 </NavDropdown>
                 </Nav>
                 
