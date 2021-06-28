@@ -7,48 +7,34 @@ import {Form,
 import { Link } from "react-router-dom";
 import './LoginScreen.css';
 import { useEffect, useState } from "react";
-import axios from "axios";
+import {useDispatch,useSelector} from 'react-redux';
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
+import { login } from "../../actions/userActions";
 
-const LoginScreen = () => {
+const LoginScreen = ({history}) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error,setError] = useState(false);
-    const [loading,setLoading] = useState(false);
 
+
+    const dispatch = useDispatch(); 
+
+    // to access redux app state
+    const userLogin = useSelector(state => state.userLogin)
+
+    const {loading, error, userInfo} = userLogin;
+
+    // if user already logged in then direct him to landing page
+    useEffect(()=>{
+        if(userInfo){
+            history.push('/mynotes')
+        }
+    },[history,userInfo])
 
     const submitHandler =  async (e) =>{
         e.preventDefault();
-        // console.log(email, password);
-        try {
-            // To make api request that takes json data
-            // we need to provide some header 
-            const config = {
-                headers:{
-                    "Content-type":"application/json"
-                }
-            }
-            setLoading(true);
-
-            const {data} = await axios.post(
-                '/api/users/login',
-                {
-                    email,
-                    password,
-                },
-                config
-            );
-            console.log(data);
-            // localstorage can't store the object data
-            // so we need to convert it into string data
-            localStorage.setItem('userInfo',JSON.stringify(data))
-            setLoading(false);
-        } catch (error) {
-            setLoading(false);
-            setError(error.response.data.message);
-        }
+        dispatch(login(email,password));
     }
 
     return (
