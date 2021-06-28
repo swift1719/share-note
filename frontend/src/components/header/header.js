@@ -7,11 +7,22 @@ import {
     FormControl, 
 } from 'react-bootstrap';
 import {
-    Link, useHistory
+    Link,useHistory
 } from 'react-router-dom';
+import { logout } from '../../actions/userActions';
+import {useDispatch,useSelector} from 'react-redux';
 
 const Header = ({name="User"}) => {
     const history = useHistory();
+    const dispatch = useDispatch();
+    const userLogin = useSelector((state)=>state.userLogin);
+    const {userInfo} =userLogin;
+
+    const logoutHandler = ()=>{
+        dispatch(logout());
+        history.push('/');
+    }
+
     return (
         <Navbar bg="primary" expand="lg" variant="dark" >
             <Container>
@@ -35,10 +46,7 @@ const Header = ({name="User"}) => {
                         My Profile
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={()=>{
-                        localStorage.removeItem('userInfo');
-                        history.push("/");
-                    }} >Logout</NavDropdown.Item>
+                    <NavDropdown.Item onClick={logoutHandler} >Logout</NavDropdown.Item>
                 </NavDropdown>
                 </Nav>
                 
