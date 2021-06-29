@@ -1,10 +1,11 @@
 import MainScreen from "../../components/MainLayout/MainLayout"
 import {Form,Row,Col,Button} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
-import { useState } from "react";
-import axios from "axios";
+import {Link,useHistory} from 'react-router-dom';
+import { useState, useEffect } from "react";
+import {useDispatch,useSelector} from 'react-redux';
 import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
+import { register } from "../../actions/userActions";
 
 const RegisterScreen = () => {
 
@@ -17,66 +18,27 @@ const RegisterScreen = () => {
     const [confirmPassword,setConfirmPassword] = useState("");
     const [picMessage,setPicMessage] = useState(null);
     const [message,setMessage] = useState(null);
-    const [loading,setLoading] = useState(false);
-    const [error, setError] = useState(false);
 
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const userRegister = useSelector(state => state.userRegister);
+
+    const { loading, error, userInfo} = userRegister;
+
+    useEffect(()=>{
+        if(userInfo){
+            history.push("/mynotes");
+        }
+    },[history,userInfo]);
 
     const submitHandler = async (e)=>{
         e.preventDefault();
-        if(password!==confirmPassword){
-            setMessage("Passwords don't match!");
-        }else{
-            setMessage(null);
-            try {
-                const config ={
-                    headers:{
-                        "Content-type":"application/json",
-                    }
-                };
-                setLoading(true);
-                
-                const {data} = await axios.post(
-                    "/api/users",
-                    {name,email,password,pic},
-                    config
-                );
-                console.log(data);
-                setLoading(false);
-                localStorage.setItem("userInfo",JSON.stringify(data));
-
-            } catch (error) {
-                setError(error.response.data.message);
-            }
-        }
-    };
-
-    const postDetails = (picture) =>{
         
-        if(!picture){
-            return setPicMessage("Please Select a profile picture!");
-        }
-
-        setPicMessage(null);
-        //transforming selected image using cloudinary
-        // which provides url for the stored image
-        if(picture.type==='image/jpeg' || picture.type==='image/jpg' || picture.type==='image/png'){
-            const data = new FormData();
-            data.append('file',picture);
-            data.append('upload_preset','shareNote');
-            data.append('cloud_name','imgstoreap');
-            fetch('https://api.cloudinary.com/v1_1/imgstoreap/image/upload',{
-                method:'post',
-                body:data,
-            })
-            .then(res=>res.json())
-            .then(res=>{
-                console.log(res);
-                setPic(res.url.toString());
-            }).catch((err)=>{
-                console.log(err);
-            });
+        if(password!==confirmPassword){
+            setMessage("Password do not match");
         }else{
-            return setPicMessage("Please select an image file");
+            dispatch(register(name,email,password,pic));
         }
     }
 
