@@ -1,5 +1,5 @@
 const mongoose =require('mongoose');
-const notes = require('../data/notes');
+// const notes = require('../data/notes');
 
 const noteSchema = mongoose.Schema(
     {
