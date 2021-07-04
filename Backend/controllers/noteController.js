@@ -7,10 +7,34 @@ const getNotes = asyncHandler(
         // to fetch notes of a user 
         // we need to provide user's id
         // that will be achieved with the help of a middleware
-        const notes = await Note.find();
+        const notes = await Note.find({
+            user:req.user._id
+        });
 
         res.json(notes);
     }
 );
 
-module.exports = {getNotes};
+const createNote = asyncHandler(
+    async (req,res) => {
+        const { title, content, category} = req.body;
+
+        if(!title || !content || !category){
+            res.status(400);
+            throw new Error("Please fill all the fields");
+        }else{
+            const note = new Note({
+                user:req.user._id,
+                title,
+                content,
+                category
+            });
+            const createNote = await note.save();
+
+            res.status(201).json(createNote);
+        }
+
+    }
+);
+
+module.exports = {getNotes,createNote};

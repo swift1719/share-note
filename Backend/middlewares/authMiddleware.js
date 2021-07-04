@@ -8,8 +8,7 @@ const protect = asyncHandler(
 
         // checking the presence of authorization header in user's request
         if(req.headers.authorization &&
-            req.headers.authorization.startsWith("Bearer"))
-        {
+            req.headers.authorization.startsWith("Bearer")){
             try {
 
                 //taking out token from authorization header 
@@ -38,3 +37,4 @@ const protect = asyncHandler(
 );
 
 module.exports = {protect};
+ 
