@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import {
     Button,
     Card,
@@ -9,26 +9,27 @@ import {
     Link
 } from 'react-router-dom';
 import MainScreen from "../../components/MainLayout/MainLayout"
-import axios from 'axios';
+import {useDispatch,useSelector} from 'react-redux';
+import { listNotes } from '../../actions/noteActions';
 
 const MyNotes = () => {
 
-    const [notes, setNotes] = useState([])
+    const dispatch = useDispatch();
+
+    const noteList = useSelector(state => state.noteList);
+    
+    const {loading,notes,error}=noteList;
 
     const deleteHandler=(id)=>{
         if(window.confirm("Are you sure?")){
 
         }
     }
-
-    const fetchNotes=async ()=>{
-        const {data}=await axios.get(`/api/notes`);
-        setNotes(data);
-    }
+   
 
     useEffect(()=>{
-        fetchNotes();
-    },[])
+        dispatch(listNotes());
+    },[dispatch]);
 
     return <MainScreen title="Welcome Back User...">
         <Link to="/createnote" >
@@ -36,8 +37,7 @@ const MyNotes = () => {
                 Create Note
             </Button>
         </Link>
-        {   notes.length>0 &&
-            notes.map((note)=>(
+        {   notes?.map((note)=>(
                 <Accordion key={note._id}>
                     <Card style={{margin:10}} >
                         <Card.Header style={{display:"flex"}} >
@@ -96,6 +96,6 @@ const MyNotes = () => {
         }
         
     </MainScreen>
-}
+};
 
 export default MyNotes
