@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom';
 import { logout } from '../../actions/userActions';
 import {useDispatch,useSelector} from 'react-redux';
+import titleCase from '../../utils/titleCase';
 
 const Header = ({name="User"}) => {
     const history = useHistory();
@@ -41,7 +42,7 @@ const Header = ({name="User"}) => {
                         My Notes
                     </Link>
                 </div>
-                <NavDropdown title={name} id="basic-nav-dropdown">
+                <NavDropdown title={userInfo?titleCase(userInfo.name):"User"} id="basic-nav-dropdown">
                     <NavDropdown.Item href="#">
                         My Profile
                     </NavDropdown.Item>
