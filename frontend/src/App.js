@@ -10,6 +10,7 @@ import {
   Switch,
   Route,  
 } from 'react-router-dom';
+import CreateNote from './screens/SingleNote/CreateNote';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route exact path="/" component={LandingPage} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
+          <Route path="/createNote" component={CreateNote} />
           <Route path="/mynotes" component={()=><MyNotes/>} />
         </Switch>
       <Footer/>
