@@ -5,39 +5,51 @@ import {
     Badge,
     Accordion
 } from 'react-bootstrap';
-import {
-    Link
-} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import MainScreen from "../../components/MainLayout/MainLayout"
 import {useDispatch,useSelector} from 'react-redux';
 import { listNotes } from '../../actions/noteActions';
+import Loading from '../../components/Loading';
+import ErrorMessage from '../../components/ErrorMessage';
+import ReactMarkdown from 'react-markdown';
+import titleCase from '../../utils/titleCase';
 
 const MyNotes = () => {
 
     const dispatch = useDispatch();
 
     const noteList = useSelector(state => state.noteList);
+    const userLogin = useSelector(state => state.userLogin)
     
+    const {userInfo} = userLogin;
     const {loading,notes,error}=noteList;
+
+    const noteCreate = useSelector(state => state.noteCreate);
+    const {success:successCreate} = noteCreate;
 
     const deleteHandler=(id)=>{
         if(window.confirm("Are you sure?")){
 
         }
     }
-   
+    const history = useHistory();
 
     useEffect(()=>{
         dispatch(listNotes());
-    },[dispatch]);
+        if(!userInfo){
+            history.push("/");
+        }
+    },[history,userInfo,dispatch,successCreate]);
 
-    return <MainScreen title="Welcome Back User...">
+    return <MainScreen title={`Welcome back ${userInfo?titleCase(userInfo.name):"User"}...`}>
         <Link to="/createnote" >
             <Button style={{marginLeft:10,marginBottom:6}} size="lg" color="primary" >
                 Create Note
             </Button>
         </Link>
-        {   notes?.map((note)=>(
+        {error && <ErrorMessage variant="alert" >{error}</ErrorMessage>}
+        {loading && <Loading/> }
+        {   notes?.reverse().map((note)=>(
                 <Accordion key={note._id}>
                     <Card style={{margin:10}} >
                         <Card.Header style={{display:"flex"}} >
@@ -80,11 +92,16 @@ const MyNotes = () => {
                                     </Badge>
                                 </h4>
                                 <blockquote className="blockquote mb-0">
-                                    <p>
+                                    
+                                    <ReactMarkdown>
                                         {note.content}
-                                    </p>
+                                    </ReactMarkdown>
+                                    
                                     <footer className="blockquote-footer">
-                                        Create On : Date
+                                        Created On : {" "}
+                                        <cite title="Source Title">
+                                            {note.createdAt.substring(0,10)}
+                                        </cite>
                                     </footer>
                                 </blockquote>
                             </Card.Body>
