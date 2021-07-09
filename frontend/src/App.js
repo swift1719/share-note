@@ -11,6 +11,7 @@ import {
   Route,  
 } from 'react-router-dom';
 import CreateNote from './screens/SingleNote/CreateNote';
+import SingleNote from './screens/SingleNote/SingleNote';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/createNote" component={CreateNote} />
+          <Route path="/note/:id" component={SingleNote} />
           <Route path="/mynotes" component={()=><MyNotes/>} />
         </Switch>
       <Footer/>
