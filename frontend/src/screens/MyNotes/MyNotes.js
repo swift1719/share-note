@@ -33,7 +33,7 @@ const MyNotes = () => {
 
 
     const noteDelete = useSelector(state => state.noteDelete);
-    const {loading:loadingDelete,error:errorDelete,success:successDelete} = noteDelete;
+    const {error:errorDelete,success:successDelete} = noteDelete;
 
     const deleteHandler=(id)=>{
         if(window.confirm("Are you sure?")){
@@ -62,7 +62,7 @@ const MyNotes = () => {
             )
         }
         {
-            loadingDelete && <Loading/>
+            // loadingDelete && <Loading/>
         }
         {error && <ErrorMessage variant="alert" >{error}</ErrorMessage>}
         {loading && <Loading/> }

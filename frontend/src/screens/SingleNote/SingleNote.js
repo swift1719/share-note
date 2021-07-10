@@ -6,7 +6,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import ReactMarkdown from "react-markdown";
 import Loading from "../../components/Loading";
 import axios from "axios";
-import { updateNoteAction } from "../../actions/noteActions";
+import { deleteNoteAction, updateNoteAction } from "../../actions/noteActions";
 
 const SingleNote = ({match,history}) => {
     const [title, setTitle] = useState();
@@ -20,6 +20,17 @@ const SingleNote = ({match,history}) => {
 
     const {loading,error} = noteUpdate;
 
+
+    const noteDelete = useSelector(state => state.noteDelete);
+    const {loading:loadingDelete,error:errorDelete,success:successDelete} = noteDelete;
+
+    const deleteHandler=(id)=>{
+        if(window.confirm("Are you sure?")){
+            dispatch(deleteNoteAction(id));
+        }
+        history.push("/mynotes");
+    };
+
     useEffect(() => {
         
         const fetching = async ()=>{
@@ -31,7 +42,7 @@ const SingleNote = ({match,history}) => {
         };
 
         fetching();
-    }, [match.params.id,date]);
+    }, [match.params.id,date,successDelete]);
 
     const resetHandler = ()=>{
         setTitle("");
@@ -55,6 +66,14 @@ const SingleNote = ({match,history}) => {
                 <Card.Header>Edit your Note</Card.Header>
                 <Card.Body>
                     <Form onSubmit={updateHandler} >
+                        {
+                            errorDelete && (
+                                <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
+                            )
+                        }
+                        {
+                            loadingDelete && <Loading/>
+                        }
                         {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
                         <Form.Group controlId="title" >
                             <Form.Label>
@@ -103,7 +122,7 @@ const SingleNote = ({match,history}) => {
                         <Button variant="primary" type="submit">
                             Update
                         </Button>
-                        <Button className="mx-2" variant="danger">
+                        <Button onClick={()=>deleteHandler(match.params.id)} className="mx-2" variant="danger">
                             Delete
                         </Button>
                     </Form>
