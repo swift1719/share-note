@@ -1,4 +1,4 @@
-import { NOTE_CREATE_FAILED, NOTE_CREATE_REQUEST, NOTE_CREATE_SUCCESS, NOTE_LIST_FAIL, NOTE_LIST_REQUEST, NOTE_LIST_SUCCESS, NOTE_UPDATE_FAILED, NOTE_UPDATE_REQUEST, NOTE_UPDATE_SUCCESS } from "../constants/notesConstants";
+import { NOTE_CREATE_FAILED, NOTE_CREATE_REQUEST, NOTE_CREATE_SUCCESS, NOTE_DELETE_FAILED, NOTE_DELETE_REQUEST, NOTE_DELETE_SUCCESS, NOTE_LIST_FAIL, NOTE_LIST_REQUEST, NOTE_LIST_SUCCESS, NOTE_UPDATE_FAILED, NOTE_UPDATE_REQUEST, NOTE_UPDATE_SUCCESS } from "../constants/notesConstants";
 
 export const  noteListReducer = (state = {notes:[]},action)=>{
     switch(action.type){
@@ -62,5 +62,27 @@ export const noteUpdateReducer = (state={},action) => {
             };
         default:
             return state
+    }
+};
+
+export const noteDeleteReducer = (state={},action)=>{
+    switch(action.type){
+        case NOTE_DELETE_REQUEST:
+            return {
+                loading:true
+            };
+        case NOTE_DELETE_SUCCESS:
+            return {
+                loading:false,
+                success:true
+            };
+        case NOTE_DELETE_FAILED:
+            return {
+                loading:false,
+                error:action.payload,
+                success:false
+            };
+        default:
+            return state;
     }
 };
