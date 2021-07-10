@@ -8,7 +8,7 @@ import {
 import {Link, useHistory} from 'react-router-dom';
 import MainScreen from "../../components/MainLayout/MainLayout"
 import {useDispatch,useSelector} from 'react-redux';
-import { listNotes } from '../../actions/noteActions';
+import { deleteNoteAction, listNotes } from '../../actions/noteActions';
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/ErrorMessage';
 import ReactMarkdown from 'react-markdown';
@@ -31,11 +31,16 @@ const MyNotes = () => {
     const noteUpdate = useSelector(state=>state.noteUpdate);
     const {success:successUpdate} = noteUpdate;
 
+
+    const noteDelete = useSelector(state => state.noteDelete);
+    const {loading:loadingDelete,error:errorDelete,success:successDelete} = noteDelete;
+
     const deleteHandler=(id)=>{
         if(window.confirm("Are you sure?")){
-
+            dispatch(deleteNoteAction(id));
         }
-    }
+    };
+
     const history = useHistory();
 
     useEffect(()=>{
@@ -43,7 +48,7 @@ const MyNotes = () => {
         if(!userInfo){
             history.push("/");
         }
-    },[history,userInfo,dispatch,successCreate,successUpdate]);
+    },[history,userInfo,dispatch,successCreate,successUpdate,successDelete]);
 
     return <MainScreen title={`Welcome back ${userInfo?titleCase(userInfo.name):"User"}...`}>
         <Link to="/createnote" >
@@ -51,6 +56,14 @@ const MyNotes = () => {
                 Create Note
             </Button>
         </Link>
+        {
+            errorDelete && (
+                <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
+            )
+        }
+        {
+            loadingDelete && <Loading/>
+        }
         {error && <ErrorMessage variant="alert" >{error}</ErrorMessage>}
         {loading && <Loading/> }
         {   notes?.reverse().map((note)=>(
