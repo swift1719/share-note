@@ -30,31 +30,39 @@ const Header = ({ setSearch }) => {
         </div>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Form inline className="m-auto">
-            <FormControl
-              type="text"
-              placeholder="Search"
-              className="mr-sm-2"
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </Form>
+        {userInfo ? (
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Form inline className="m-auto">
+              <FormControl
+                type="text"
+                placeholder="Search"
+                className="mr-sm-2"
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </Form>
+            <Nav>
+              <div className="nav-link">
+                <Link to="/mynotes">My Notes</Link>
+              </div>
+              <NavDropdown
+                title={userInfo ? titleCase(userInfo.name) : "User"}
+                id="basic-nav-dropdown"
+              >
+                <NavDropdown.Item href="#">My Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={logoutHandler}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        ) : (
           <Nav>
             <div className="nav-link">
-              <Link to="/mynotes">My Notes</Link>
+              <Link to="/login">Login</Link>
             </div>
-            <NavDropdown
-              title={userInfo ? titleCase(userInfo.name) : "User"}
-              id="basic-nav-dropdown"
-            >
-              <NavDropdown.Item href="#">My Profile</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item onClick={logoutHandler}>
-                Logout
-              </NavDropdown.Item>
-            </NavDropdown>
           </Nav>
-        </Navbar.Collapse>
+        )}
       </Container>
     </Navbar>
   );
