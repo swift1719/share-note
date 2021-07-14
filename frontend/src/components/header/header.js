@@ -48,7 +48,7 @@ const Header = ({ setSearch }) => {
                 title={userInfo ? titleCase(userInfo.name) : "User"}
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item href="#">My Profile</NavDropdown.Item>
+                <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logoutHandler}>
                   Logout
