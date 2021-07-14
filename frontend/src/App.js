@@ -9,6 +9,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import CreateNote from "./screens/SingleNote/CreateNote";
 import SingleNote from "./screens/SingleNote/SingleNote";
 import { useState } from "react";
+import ProfileScreen from "./screens/Profile/ProfileScreen";
 
 const App = () => {
   const [search, setSearch] = useState("");
@@ -23,6 +24,7 @@ const App = () => {
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={LoginScreen} />
         <Route path="/register" component={RegisterScreen} />
+        <Route path="/profile" component={ProfileScreen} />
         <Route path="/createNote" component={CreateNote} />
         <Route path="/note/:id" component={SingleNote} />
         <Route path="/mynotes" component={() => <MyNotes search={search} />} />
