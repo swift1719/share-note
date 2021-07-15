@@ -1,5 +1,4 @@
 import "./App.css";
-import Footer from "./components/footer/footer";
 import Header from "./components/header/header";
 import LandingPage from "./screens/LandingScreen/landingPage";
 import MyNotes from "./screens/MyNotes/MyNotes";
@@ -29,7 +28,6 @@ const App = () => {
         <Route path="/note/:id" component={SingleNote} />
         <Route path="/mynotes" component={() => <MyNotes search={search} />} />
       </Switch>
-      <Footer />
     </BrowserRouter>
   );
 };

@@ -24,45 +24,74 @@ const Header = ({ setSearch }) => {
 
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
-      <Container>
+      <Container style={{ fontSize: "18px" }}>
         <div className="navbar-brand">
-          <Link to="/">Share Note</Link>
+          <Link
+            to="/"
+            style={{ fontSize: "24px", fontSmooth: "4", letterSpacing: "2px" }}
+          >
+            SHARE NOTE
+          </Link>
         </div>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        {userInfo ? (
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Form inline className="m-auto">
-              <FormControl
-                type="text"
-                placeholder="Search"
-                className="mr-sm-2"
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </Form>
-            <Nav>
-              <div className="nav-link">
-                <Link to="/mynotes">My Notes</Link>
-              </div>
-              <NavDropdown
-                title={userInfo ? titleCase(userInfo.name) : "User"}
-                id="basic-nav-dropdown"
-              >
-                <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item onClick={logoutHandler}>
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        ) : (
-          <Nav>
-            <div className="nav-link">
-              <Link to="/login">Login</Link>
-            </div>
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="m-auto">
+            {userInfo && (
+              <Form inline>
+                <FormControl
+                  type="text"
+                  placeholder="Search"
+                  className="mr-sm-2"
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </Form>
+            )}
           </Nav>
-        )}
+          <Nav>
+            {userInfo ? (
+              <>
+                <div className="nav-link">
+                  <Link to="/mynotes">My Notes</Link>
+                </div>
+                <NavDropdown
+                  title={userInfo ? titleCase(userInfo.name) : "User"}
+                  id="basic-nav-dropdown"
+                >
+                  <NavDropdown.Item
+                    style={{ fontSize: "16px" }}
+                    href="/profile"
+                  >
+                    <img
+                      alt=""
+                      src={`${userInfo?.pic}`}
+                      width="40"
+                      height="40"
+                      style={{ marginRight: 10, borderRadius: "18px" }}
+                    />
+                    My Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item
+                    style={{ fontSize: "16px" }}
+                    onClick={logoutHandler}
+                  >
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </>
+            ) : (
+              <div className="nav-link">
+                <Link
+                  style={{ fontSize: "20px", fontWeight: "bold" }}
+                  to="/login"
+                >
+                  Login
+                </Link>
+              </div>
+            )}
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
