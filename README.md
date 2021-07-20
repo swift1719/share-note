@@ -1,7 +1,7 @@
 # Share-Note 
+> Simple note making app with user authentication.
 
-
-> ## Built with
+## 🛠️ Built with
 
 * React.js : Front end library
 
